@@ -9,24 +9,23 @@ namespace Tyuiu.NasadukJA.Sprint6.Task3.V9.Lib
         public int[,] Calculate(int[,] matrix)
         {
             int rows = matrix.GetLength(0);
+            int cols = matrix.GetLength(1);
 
-            for (int i = 0; i < rows - 1; i++)
-            {
-                for (int j = 0; j < rows - i - 1; j++)
-                {
-                    if (matrix[j, 4] > matrix[j + 1, 4])
-                    {
-                        for (int k = 0; k < 5; k++)
-                        {
-                            int temp = matrix[j, k];
-                            matrix[j, k] = matrix[j + 1, k];
-                            matrix[j + 1, k] = temp;
-                        }
-                    }
-                }
-            }
+            int[,] result = new int[rows, cols];
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols; j++)
+                    result[i, j] = matrix[i, j];
 
-            return matrix;
+            int[] column = new int[rows];
+            for (int i = 0; i < rows; i++)
+                column[i] = result[i, 4];
+
+            Array.Sort(column);
+
+            for (int i = 0; i < rows; i++)
+                result[i, 4] = column[i];
+
+            return result;
         }
     }
 }
