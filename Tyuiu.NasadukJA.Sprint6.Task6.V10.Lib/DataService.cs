@@ -8,7 +8,26 @@ namespace Tyuiu.NasadukJA.Sprint6.Task6.V10.Lib
     {
         public string CollectTextFromFile(string path)
         {
-            
+            string result = "";
+
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string? line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] words = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (string w in words)
+                    {
+                        if (w.Contains("w"))
+                        {
+                            result += w + " ";
+                        }
+                    }
+                }
+            }
+
+            return result.Trim();
         }
     }
 }
