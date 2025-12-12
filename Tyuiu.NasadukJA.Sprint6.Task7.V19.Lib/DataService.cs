@@ -8,10 +8,7 @@ namespace Tyuiu.NasadukJA.Sprint6.Task7.V19.Lib
     {
         public int[,] GetMatrix(string path)
         {
-            string fileData = File.ReadAllText(path);
-            fileData = fileData.Replace('\n', '\r');
-
-            string[] lines = fileData.Split(new char[] { '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = File.ReadAllLines(path);
 
             int rows = lines.Length;
             int cols = lines[0].Split(';').Length;
@@ -24,6 +21,14 @@ namespace Tyuiu.NasadukJA.Sprint6.Task7.V19.Lib
                 for (int c = 0; c < cols; c++)
                 {
                     matrix[r, c] = Convert.ToInt32(values[c]);
+                }
+            }
+
+            for (int c = 0; c < cols; c++)
+            {
+                if (matrix[1, c] % 2 == 0)
+                {
+                    matrix[1, c] = 2;
                 }
             }
 

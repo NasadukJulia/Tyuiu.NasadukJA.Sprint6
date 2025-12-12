@@ -19,6 +19,27 @@ namespace Tyuiu.NasadukJA.Sprint6.Task7.V19
             buttonSaveFile_NJA.Enabled = false;
         }
 
+        private int[,] LoadRawMatrix(string path)
+        {
+            string[] lines = File.ReadAllLines(path);
+
+            int rows = lines.Length;
+            int cols = lines[0].Split(';').Length;
+
+            int[,] matrix = new int[rows, cols];
+
+            for (int r = 0; r < rows; r++)
+            {
+                string[] values = lines[r].Split(';');
+                for (int c = 0; c < cols; c++)
+                {
+                    matrix[r, c] = Convert.ToInt32(values[c]);
+                }
+            }
+
+            return matrix;
+        }
+
         private void buttonOpenFile_NJA_Click(object sender, EventArgs e)
         {
             if (openFileDialogTask_NJA.ShowDialog() == DialogResult.OK)
@@ -26,42 +47,20 @@ namespace Tyuiu.NasadukJA.Sprint6.Task7.V19
                 openFilePath = openFileDialogTask_NJA.FileName;
                 textBoxPath_NJA.Text = openFilePath;
 
-                inputMatrix = ds.GetMatrix(openFilePath);
-
+                inputMatrix = LoadRawMatrix(openFilePath);
                 FillDataGrid(dataGridViewIn_NJA, inputMatrix);
 
+                outputMatrix = ds.GetMatrix(openFilePath);
+
                 buttonDone_NJA.Enabled = true;
-                MessageBox.Show("Файл успешно загружен!");
+                buttonSaveFile_NJA.Enabled = false;
             }
         }
 
         private void buttonDone_NJA_Click(object sender, EventArgs e)
         {
-            if (inputMatrix == null)
-            {
-                MessageBox.Show("Сначала загрузите файл!", "Ошибка");
-                return;
-            }
-
-            outputMatrix = ChangeSecondRow(inputMatrix);
-
             FillDataGrid(dataGridViewOut_NJA, outputMatrix);
-
             buttonSaveFile_NJA.Enabled = true;
-        }
-
-        private int[,] ChangeSecondRow(int[,] matrix)
-        {
-            int rows = matrix.GetLength(0);
-            int cols = matrix.GetLength(1);
-
-            for (int c = 0; c < cols; c++)
-            {
-                if (matrix[1, c] % 2 == 0)
-                    matrix[1, c] = 2;
-            }
-
-            return matrix;
         }
 
         private void buttonSaveFile_NJA_Click(object sender, EventArgs e)
