@@ -134,5 +134,20 @@ namespace Tyuiu.NasadukJA.Sprint6.Task7.V19
         {
 
         }
+
+        private void textBoxPath_NJA_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxPath_NJA_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openFileDialogTask_NJA_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
     }
 }
